@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>商当てスプリント</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>商当てスプリント</h1>
+      <button id="themeToggle" aria-label="テーマ切替">高コントラスト</button>
+    </header>
+
+    <section class="panel primary-controls">
+      <button id="startButton" class="primary">スタート</button>
+      <label>
+        PPM
+        <input type="range" id="ppmSlider" min="5" max="120" value="30" />
+        <span id="ppmValue">30</span>
+      </label>
+      <label>
+        目標スコア
+        <input type="number" id="targetInput" min="10" step="10" required />
+      </label>
+      <label class="mode-toggle">
+        モード
+        <select id="modeSelect">
+          <option value="leading">先頭桁当て</option>
+          <option value="rounded">概算商</option>
+        </select>
+      </label>
+      <div class="toggle-group">
+        <label><input type="checkbox" id="autoAdvance" checked /> 自動進行</label>
+        <label><input type="checkbox" id="showReveal" checked /> 正解表示</label>
+      </div>
+      <label>
+        正解表示遅延(ms)
+        <input type="number" id="revealDelay" min="0" step="100" value="0" />
+      </label>
+      <button id="detailsToggle" class="secondary">詳細設定</button>
+    </section>
+
+    <section id="detailsPanel" class="panel details hidden">
+      <div class="grid">
+        <label>被除数最小桁<input type="number" id="dividendMin" min="1" max="12" value="7" /></label>
+        <label>被除数最大桁<input type="number" id="dividendMax" min="1" max="12" value="9" /></label>
+        <label>除数最小桁<input type="number" id="divisorMin" min="1" max="6" value="3" /></label>
+        <label>除数最大桁<input type="number" id="divisorMax" min="1" max="6" value="6" /></label>
+        <label><input type="checkbox" id="exactOnly" /> 割り切り限定</label>
+        <label><input type="checkbox" id="manualReveal" /> 正解を手動で表示</label>
+        <label>シード<input type="number" id="seedInput" placeholder="任意" /></label>
+        <label>基本加点<input type="number" id="basePoint" value="10" /></label>
+        <label>基本減点<input type="number" id="penaltyPoint" value="10" /></label>
+        <label>ご褒美メッセージ<textarea id="rewardText" rows="2" placeholder="達成おめでとう！"></textarea></label>
+      </div>
+      <p class="hint">桁設定の矛盾は自動で補正されます。</p>
+    </section>
+
+    <section class="panel play-area">
+      <div class="problem-display">
+        <div id="problemText" aria-live="polite">準備OK?</div>
+      </div>
+      <div class="progress-wrapper">
+        <div id="progressBar"></div>
+      </div>
+      <div class="result-card">
+        <div id="resultIndicator">—</div>
+        <div id="reactionTime">RT: — ms</div>
+        <div id="streakInfo">連続: 0 (×1.0)</div>
+      </div>
+      <div class="score-card">
+        <div>現在スコア: <span id="currentScore">0</span></div>
+        <div>ベスト: <span id="bestScore">0</span></div>
+        <div class="target-bar">
+          <div id="targetProgress"></div>
+        </div>
+      </div>
+      <div class="answer-area">
+        <input id="answerInput" type="text" inputmode="numeric" autocomplete="off" placeholder="回答" />
+        <button id="submitAnswer" class="primary">決定</button>
+        <button id="clearAnswer" class="secondary">クリア</button>
+        <button id="nextButton" class="secondary">次へ</button>
+        <button id="revealButton" class="secondary">正解表示</button>
+      </div>
+      <div id="correctDisplay" class="correct-display hidden"></div>
+    </section>
+
+    <section class="panel keypad">
+      <div class="key-grid">
+        <button data-key="7">7</button>
+        <button data-key="8">8</button>
+        <button data-key="9">9</button>
+        <button data-key="4">4</button>
+        <button data-key="5">5</button>
+        <button data-key="6">6</button>
+        <button data-key="1">1</button>
+        <button data-key="2">2</button>
+        <button data-key="3">3</button>
+        <button data-key="0" class="wide">0</button>
+      </div>
+    </section>
+
+    <section class="panel stats">
+      <div>出題数: <span id="questionCount">0</span></div>
+      <div>正答率: <span id="accuracy">0%</span></div>
+      <div>直近RT: <span id="recentRt">—</span></div>
+      <div>ストリーク: <span id="streakCount">0</span></div>
+    </section>
+
+    <section class="panel history">
+      <button id="exportCsv" class="primary">CSVエクスポート</button>
+      <div id="testResults" class="tests"></div>
+    </section>
+  </div>
+
+  <div id="rewardModal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <p id="rewardMessage">達成おめでとう！</p>
+      <button id="closeModal" class="primary">閉じる</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

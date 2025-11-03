@@ -1,0 +1,288 @@
+:root {
+  color-scheme: dark;
+  --bg: #121418;
+  --fg: #f0f3ff;
+  --accent: #6c9cff;
+  --accent-strong: #3b6dff;
+  --panel: #1e2230;
+  --panel-contrast: #fefefe;
+  --danger: #ff6c7a;
+  --success: #63ffa2;
+  --muted: #8a92a8;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  min-height: 100vh;
+}
+
+body.contrast {
+  --bg: #000000;
+  --fg: #ffffff;
+  --accent: #ffe866;
+  --accent-strong: #ffcc00;
+  --panel: #111111;
+  --danger: #ff4050;
+  --success: #55ff88;
+  --muted: #b8b8b8;
+}
+
+.app {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1rem;
+  display: grid;
+  gap: 1rem;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h1 {
+  margin: 0;
+}
+
+.panel {
+  background: var(--panel);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.primary-controls label,
+.details label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.9rem;
+}
+
+.primary-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  align-items: end;
+}
+
+.primary-controls button.primary {
+  grid-column: span 2;
+  height: 3rem;
+  font-size: 1.2rem;
+}
+
+.mode-toggle select,
+.primary-controls input[type="number"],
+.primary-controls input[type="range"] {
+  font-size: 1rem;
+}
+
+.primary-controls input[type="range"] {
+  width: 100%;
+}
+
+.toggle-group {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.details .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.75rem;
+}
+
+.details textarea {
+  resize: vertical;
+}
+
+.hidden {
+  display: none !important;
+}
+
+button {
+  background: var(--accent);
+  color: var(--fg);
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+button.primary {
+  background: var(--accent-strong);
+}
+
+button.secondary {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+button:hover,
+button:focus {
+  outline: none;
+  background: var(--accent-strong);
+}
+
+button.secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.play-area {
+  text-align: center;
+}
+
+.problem-display {
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  word-wrap: break-word;
+}
+
+.progress-wrapper {
+  height: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+#progressBar {
+  height: 100%;
+  width: 0;
+  background: var(--accent);
+  transition: width 0.05s linear;
+}
+
+.result-card,
+.score-card {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+#resultIndicator {
+  font-size: 1.5rem;
+}
+
+.answer-area {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  align-items: center;
+}
+
+#answerInput {
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.3);
+  color: var(--fg);
+  width: min(220px, 80vw);
+  text-align: center;
+}
+
+.correct-display {
+  margin-top: 0.5rem;
+  font-size: 1.2rem;
+  color: var(--muted);
+}
+
+.keypad .key-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.keypad button {
+  padding: 1rem;
+  font-size: 1.4rem;
+}
+
+.keypad button.wide {
+  grid-column: span 3;
+}
+
+.stats,
+.history {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.target-bar {
+  background: rgba(255, 255, 255, 0.08);
+  height: 12px;
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+
+#targetProgress {
+  height: 100%;
+  width: 0;
+  background: var(--success);
+  transition: width 0.2s ease;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.modal-content {
+  background: var(--panel);
+  padding: 2rem;
+  border-radius: 16px;
+  text-align: center;
+  max-width: 320px;
+}
+
+.tests {
+  font-size: 0.9rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.tests span.pass {
+  color: var(--success);
+}
+
+.tests span.fail {
+  color: var(--danger);
+}
+
+.result-card .correct {
+  color: var(--success);
+}
+
+.result-card .incorrect {
+  color: var(--danger);
+}
+
+@media (max-width: 640px) {
+  header {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .primary-controls button.primary {
+    grid-column: span 1;
+  }
+}
